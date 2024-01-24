@@ -1,0 +1,20 @@
+<div class="card">
+    <img [src]="data.image" class="card-img-top" alt="Card Image" [routerLink]="['/products/details/', data.id]">
+    <div class="card-body">
+        <div class="row" [routerLink]="['/products/details/', data.id]">
+            <h5 class="card-title">{{data.title}}</h5>
+            <p class="card-text mx-2 mb-2">
+                {{data.description}}
+            </p>
+        </div>
+        <div class="row d-flex justify-content-between align-datas-center">
+            <a class="btn btn-success ml-2" *ngIf="!addButton && !sending" (click)="addButton=true">Add To Cart</a>
+            <div class="d-flex w-50 ml-2" *ngIf="addButton && !sending">
+                <input type="number" class="form-control" min="1" [(ngModel)]="amount">
+                <button class="btn addNumberOfCarts" (click)="add(); sending=true">add</button>
+            </div>
+            <button class="btn btn-success" disabled *ngIf="sending">Sent</button>
+            <span class="badge ml-auto mr-2">{{data.price}} L.E</span>
+        </div>
+    </div>
+</div>

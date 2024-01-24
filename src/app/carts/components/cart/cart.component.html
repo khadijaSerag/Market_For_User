@@ -1,0 +1,82 @@
+<div class="row mt-5">
+    <div class="col-sm-12">
+        <div class="card mb-5">
+            <div class="card-body">
+
+                <h2 class="card-title">Shopping Cart</h2>
+
+                <div *ngIf="!success && sum!=0">
+                    <div class="row m-3">
+                        <p class="card-text">You have <strong><em>{{cartProducts.length}}</em></strong> item in your
+                            cart
+                        </p>
+                        <a class="btn btn-light text-danger ml-auto card-header" (click)="clearCarts()">Clear Shopping
+                            Cart</a>
+                    </div>
+                    <div class="table-responsive-md">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col" class="w-25">Quantity</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cartProduct of cartProducts; let i=index">
+                                    <td><img [src]="cartProduct.item.image" [alt]="cartProduct.item.title"></td>
+                                    <td>{{cartProduct.item.title}}</td>
+                                    <td>{{cartProduct.item.price}} L.E</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <button class="btn ml-2 minus" (click)="onMinus(i)">-</button>
+
+                                            <input type="number" class="form-control ml-2" min="1"
+                                                [(ngModel)]="cartProduct.quantity" (change)="detectChanges()">
+                                            <button class="btn ml-2 plus" (click)="onPlus(i)">+</button>
+
+                                        </div>
+                                    </td>
+                                    <td>{{cartProduct.item.price * cartProduct.quantity}} L.E</td>
+                                    <!-- <td>{{multiplyNumbers(cartProduct.item.price,cartProduct.quantity)}} L.E</td> -->
+                                    <td>
+                                        <button class="btn btn-danger" (click)="deleteProduct(i)">Delete</button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="my-5 d-flex justify-content-center align-items-center" *ngIf="sum==0 && !success">
+                    <h3 class="text-danger">This is empty cart</h3>
+                </div>
+
+
+
+                <div class="row ml-auto mt-2 mr-5  d-flex align-items-center d-flex  justify-content-end">
+                    <span><strong>Total Price is : </strong> <strong>{{sum}} L.E</strong></span>
+                    <button class="btn btn-success ml-5" (click)="addNewCart()" [disabled]="sum==0"> Order Now</button>
+                </div>
+                <hr>
+
+                <div class="card success my-4" *ngIf="success">
+                    <div class="mx-3 mt-3">
+                        <p><strong>Well Done ! </strong> Your Order was Successfully Send</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>

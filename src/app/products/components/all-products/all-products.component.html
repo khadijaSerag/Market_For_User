@@ -1,0 +1,24 @@
+<!-- select option -->
+<div class="mt-3 w-25  mb-3">
+    <app-select [title]="'Categories:'" [data]="categories" (selectedValue)="filterCategory($event)"></app-select>
+</div>
+
+<!-- El Data -->
+<div class="row" *ngIf="!error && !loading">
+    <div class="col-md-4 col-lg-3 col-sm-6 p-0" *ngFor="let product of products">
+        <app-product   [data]="product"  (itemSelected)="addToCart($event)"></app-product>
+    </div>
+</div>
+
+<!-- El spinner -->
+<div class="row d-flex justify-content-center align-items-center mt-5" *ngIf="loading">
+    <app-spinner></app-spinner>
+</div>
+
+<!-- If error -->
+<div class="row d-flex justify-content-center align-items-center mt-5" *ngIf="error && !loading">
+    <div class="alert alert-danger p-5">
+        <h2>An Error Occurred !</h2>
+        <p>{{error}}</p>
+    </div>
+</div>

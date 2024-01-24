@@ -10,7 +10,8 @@
                         <p class="card-text">You have <strong><em>{{cartProducts.length}}</em></strong> item in your
                             cart
                         </p>
-                        <a class="btn btn-light text-danger ml-auto card-header" (click)="clearCarts()">Clear Shopping
+                        <a class="btn btn-light text-danger ml-auto card-header" data-toggle="modal"
+                            data-target="#clearModal">Clear Shopping
                             Cart</a>
                     </div>
                     <div class="table-responsive-md">
@@ -43,14 +44,39 @@
                                     <td>{{cartProduct.item.price * cartProduct.quantity}} L.E</td>
                                     <!-- <td>{{multiplyNumbers(cartProduct.item.price,cartProduct.quantity)}} L.E</td> -->
                                     <td>
-                                        <button class="btn btn-danger" (click)="deleteProduct(i)">Delete</button>
+                                        <!-- Button trigger modal -->
+                                        <button class="btn btn-danger" data-toggle="modal"
+                                            data-target="#deleteModal">Delete</button>
                                     </td>
 
+
+                                    <!-- Delete modal -->
+                                    <div class="modal fade" id="deleteModal" tabindex="-1"
+                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" style="color: brown; font-weight: bolder;"
+                                                        id="deleteModalLabel">Delete Product</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you Sure to Delete this Item !
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger"
+                                                        (click)="deleteProduct(i)">Delete</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </tr>
                             </tbody>
-                            <tfoot>
-
-                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -60,10 +86,10 @@
                 </div>
 
 
-
                 <div class="row ml-auto mt-2 mr-5  d-flex align-items-center d-flex  justify-content-end">
                     <span><strong>Total Price is : </strong> <strong>{{sum}} L.E</strong></span>
-                    <button class="btn btn-success ml-5" (click)="addNewCart()" [disabled]="sum==0"> Order Now</button>
+                    <button class="btn btn-success ml-5" data-toggle="modal" data-target="#addNewCartModal"
+                        [disabled]="sum==0"> Order Now</button>
                 </div>
                 <hr>
 
@@ -76,6 +102,52 @@
         </div>
 
 
+
+        <!-- Clear modal -->
+        <div class="modal fade" id="clearModal" tabindex="-1" aria-labelledby="clearModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" style="color: brown; font-weight: bolder;" id="clearModalLabel">Clear
+                            Shopping Cart</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you Sure to Clear this Shopping Cart !
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" (click)="clearCarts()">Clear</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- addNewCart modal -->
+        <div class="modal fade" id="addNewCartModal" tabindex="-1" aria-labelledby="addNewCartModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" style="color: green; font-weight: bolder;" id="addNewCartModalLabel">Add
+                            New Cart
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you Sure to Order this Shopping Cart Now !
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" (click)="addNewCart()">Order</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 

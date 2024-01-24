@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { min } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+declare var $: any;
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +13,10 @@ export class CartComponent implements OnInit {
   sum: number = 0;
   success: boolean = false;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private toastr: ToastrService
+  ) {}
   ngOnInit() {
     this.getCarts();
   }
@@ -58,12 +62,18 @@ export class CartComponent implements OnInit {
     this.cartProducts.splice(index, 1);
     this.totalSalary();
     localStorage.setItem('cart', JSON.stringify(this.cartProducts));
+    $('#deleteModal').modal('hide');
+    this.toastr.success('You are Delete This Product', 'Delete Success');
   }
 
   clearCarts() {
     this.cartProducts = [];
     this.totalSalary();
     localStorage.setItem('cart', JSON.stringify(this.cartProducts));
+    $('#clearModal').modal('hide');
+    if (!this.success) {
+      this.toastr.success('You are Clear This Shopping Cart', 'Clear Success');
+    }
   }
 
   addNewCart() {
@@ -80,6 +90,11 @@ export class CartComponent implements OnInit {
     this.cartService.addCart(model).subscribe((res: any) => {
       this.success = true;
       this.clearCarts();
+      this.toastr.success(
+        'Thank you to Order This Shopping Cart',
+        'Order Success'
+      );
     });
+    $('#addNewCartModal').modal('hide');
   }
 }

@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class CartService {
+  item:any;
   constructor(private http: HttpClient) {}
 
   addCart(data: any) {

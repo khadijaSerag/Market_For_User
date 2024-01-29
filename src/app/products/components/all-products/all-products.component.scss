@@ -1,0 +1,33 @@
+#sideBar {
+    position: fixed;  
+    right: 20px;
+    top: 120px;
+    z-index: 200;
+    background-color: rgb(211, 255, 122);
+    border-radius: 30%;
+    
+}
+
+#itemsBox {
+    background-color: #4b163f;
+    font-weight: bolder;
+    font-size: larger;
+    width: 40px;
+    color: white;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+#sideBarToggle {
+    padding: 10px;
+    font-size: x-large;
+    font-weight: bolder;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    color: #940074;
+    cursor: pointer;
+}

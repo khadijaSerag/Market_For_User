@@ -1,12 +1,23 @@
 .navbar {
-    background: linear-gradient(to right, #a10f82, #300016 );
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // z-index: 2;
+  background: linear-gradient(to right, #a10f82, #300016);
+  transition: all 0.3s ease;
   h1 {
-    color: white;
+    color: rgb(211, 255, 122);
     font-weight: 900;
     font-size: 150%;
   }
   .navbar-nav .nav-link {
-    color: whitesmoke;
+    color: rgb(194, 185, 185);
     font-size: 105%;
+  }
+
+  a.active {
+    color: whitesmoke !important;
+    font-weight: bold;
   }
 }

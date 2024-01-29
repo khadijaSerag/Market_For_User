@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
+declare var $: any;
 
 @Component({
   selector: 'app-all-products',
@@ -14,7 +16,14 @@ export class AllProductsComponent implements OnInit {
   // sending = false;
   cartProducts: any[] = [];
 
-  constructor(private productsService: ProductsService) {}
+  item: number;
+
+  constructor(
+    private productsService: ProductsService,
+    private sharedService: SharedService
+  ) {
+    this.item = this.sharedService.getValue('Your Items');
+  }
 
   ngOnInit() {
     this.getProducts();
@@ -81,11 +90,17 @@ export class AllProductsComponent implements OnInit {
         alert('this data is already exist');
       } else {
         this.cartProducts.push(event);
+        this.item++;
         localStorage.setItem('cart', JSON.stringify(this.cartProducts));
       }
     } else {
       this.cartProducts.push(event);
+      this.item++;
       localStorage.setItem('cart', JSON.stringify(this.cartProducts));
     }
+
+    this.sharedService.setValue('Your Items', this.cartProducts.length);
+    this.item = this.sharedService.getValue('Your Items');
   }
+
 }

@@ -3,10 +3,25 @@
     <app-select [title]="'Categories:'" [data]="categories" (selectedValue)="filterCategory($event)"></app-select>
 </div>
 
+
+<!-- Your Items -->
+<a style="text-decoration: none;" routerLink="/carts/cart">
+    <div id="sideBar" class="row" *ngIf="item && item != 0">
+
+        <div id="sideBarToggle">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <div id="itemsBox">
+            <strong>{{item}}</strong>
+        </div>
+    </div>
+</a>
+
+
 <!-- El Data -->
 <div class="row" *ngIf="!error && !loading">
     <div class="col-md-4 col-lg-3 col-sm-6 p-0" *ngFor="let product of products">
-        <app-product   [data]="product"  (itemSelected)="addToCart($event)"></app-product>
+        <app-product [data]="product" (itemSelected)="addToCart($event)"></app-product>
     </div>
 </div>
 

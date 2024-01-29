@@ -18,12 +18,12 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col" class="w-25">Quantity</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col"></th>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th class="col-sm-6 col-md-3">Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,8 +35,9 @@
                                         <div class="d-flex">
                                             <button class="btn ml-2 minus" (click)="onMinus(i)">-</button>
 
-                                            <input type="number" class="form-control ml-2" min="1"
+                                            <input type="number" [ngClass]="{'form-control': isSmallScreen}" class="ml-2" min="1"
                                                 [(ngModel)]="cartProduct.quantity" (change)="detectChanges()">
+
                                             <button class="btn ml-2 plus" (click)="onPlus(i)">+</button>
 
                                         </div>

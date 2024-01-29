@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-md navbar-light">
     <div class="container">
         <h1 class="navbar-brand">Market</h1>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -10,10 +10,10 @@
             <ul class="navbar-nav ml-auto">
 
                 <li class="nav-item px-5">
-                    <a class="nav-link" routerLink="/products/all-products">Products</a>
+                    <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/products/all-products">Products</a>
                 </li>
                 <li class="nav-item px-5">
-                    <a class="nav-link" routerLink="/carts/cart">Cart</a>
+                    <a class="nav-link" routerLinkActive="active" routerLink="/carts/cart">Cart</a>
                 </li>
 
             </ul>

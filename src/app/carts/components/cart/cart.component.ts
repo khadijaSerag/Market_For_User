@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/shared/services/shared.service';
 declare var $: any;
 
 @Component({
@@ -13,19 +14,33 @@ export class CartComponent implements OnInit {
   sum: number = 0;
   success: boolean = false;
 
+  isSmallScreen: boolean = false;
+
   constructor(
     private cartService: CartService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private sharedService: SharedService
   ) {}
   ngOnInit() {
     this.getCarts();
+
+    // Check screen size on component initialization
+    this.isSmallScreen = window.innerWidth > 768;
+  }
+
+  // Update screen size on window resize
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    this.isSmallScreen = window.innerWidth > 768;
   }
 
   getCarts() {
     if ('cart' in localStorage) {
       this.cartProducts = JSON.parse(localStorage.getItem('cart')!);
     }
-    console.log(this.cartProducts);
+    this.sharedService.items = this.cartProducts.length;
+    this.sharedService.setValue('Your Items', this.cartProducts.length);
+    // console.log(this.cartProducts);
     this.totalSalary();
   }
 
@@ -62,6 +77,7 @@ export class CartComponent implements OnInit {
     this.cartProducts.splice(index, 1);
     this.totalSalary();
     localStorage.setItem('cart', JSON.stringify(this.cartProducts));
+    this.sharedService.setValue('Your Items', this.cartProducts.length);
     $('#deleteModal').modal('hide');
     this.toastr.success('You are Delete This Product', 'Delete Success');
   }
@@ -70,6 +86,7 @@ export class CartComponent implements OnInit {
     this.cartProducts = [];
     this.totalSalary();
     localStorage.setItem('cart', JSON.stringify(this.cartProducts));
+    this.sharedService.setValue('Your Items', this.cartProducts.length);
     $('#clearModal').modal('hide');
     if (!this.success) {
       this.toastr.success('You are Clear This Shopping Cart', 'Clear Success');
